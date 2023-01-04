@@ -1,0 +1,46 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row mt-5">
+  <div class="text-center mt-5">
+    <h2>Create a Playlist!</h2>
+  </div>
+  <div class="col-8 offset-2 my-5">
+    <form
+      action="/users/<%=username%>/playlists"
+      method="post"
+      novalidate
+      class="validated-form"
+      enctype="multipart/form-data"
+    >
+      <div class="mb-3">
+        <label for="playlistTitle" class="form-label">Title*</label><br />
+        <input
+          type="text"
+          class="form-control"
+          id="playlistTitle"
+          name="playlistTitle"
+          aria-describedby="playlistTitle"
+          placeholder="title"
+          required
+        />
+      </div>
+
+      <div class="input-group my-5">
+        <input
+          type="file"
+          class="form-control"
+          id="playlistImage"
+          name="playlistImage"
+          single
+        />
+        <label class="input-group-text" for="playlistImage"
+          >Playlist Image</label
+        >
+      </div>
+
+      <div class="col-2 offset-5 mt-5">
+        <button type="submit" class="btn btn-primary">Create</button>
+      </div>
+    </form>
+  </div>
+</div>

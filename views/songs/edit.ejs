@@ -1,0 +1,88 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row mt-5">
+  <div class="text-center">
+    <h2>EDIT <%=song.title%></h2>
+  </div>
+  <div class="col-8 offset-2">
+    <form
+      action="/users/<%=username%>/tracks/<%=song.id%>?_method=put"
+      method="post"
+      novalidate
+      class="validated-form"
+      enctype="multipart/form-data"
+    >
+      <div class="mb-3">
+        <label for="songTitle" class="form-label">Title*</label><br />
+        <input
+          type="text"
+          class="form-control"
+          id="songTitle"
+          name="songTitle"
+          aria-describedby="songTitle"
+          placeholder="title"
+          value="<%=song.title%>"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="songLink" class="form-label">Link*</label><br />
+        <input
+          type="text"
+          class="form-control"
+          id="songLink"
+          name="songLink"
+          placeholder="link"
+          value="<%=song.link%>"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="songGenre" class="form-label">Genre*</label><br />
+        <input
+          type="text"
+          class="form-control"
+          id="songGenre"
+          name="songGenre"
+          placeholder="genre"
+          value="<%=song.genre%>"
+          required
+        />
+      </div>
+
+      <!-- NEED MODIFICATION IN FORM!!!!!!!!!!!!!! -->
+      <div class="input-group my-4">
+        <input
+          type="file"
+          class="form-control"
+          id="songImage"
+          name="songImage"
+          single
+        />
+        <label class="input-group-text" for="songImage">Song Image</label>
+      </div>
+
+      <div class="row my-4 d-flex justify-content-center">
+        <div class="col-6">
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              name="songBPM"
+              id="songBPM"
+              placeholder="bpm"
+              value="<%=song.bpm%>"
+            />
+            <label for="songBPM">BPM</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-2 offset-5 mt-5 d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>

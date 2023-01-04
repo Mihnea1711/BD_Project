@@ -1,0 +1,132 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row mt-5">
+  <h1>Discover some of this week's new tunes!</h1>
+  <hr />
+  <div class="col-9">
+    <% if(!Object.keys(songs).length) { %>
+    <div class="row text-center my-5">
+      <p class="fs-4">No uploaded songs yet...</p>
+    </div>
+    <% } else { %> <% for(let songId of Object.keys(songs)) { %>
+    <div class="card my-3">
+      <div class="row g-0 py-3">
+        <div class="col-md-4 d-flex justify-content-center align-self-center">
+          <img
+            src="<%=songs[songId].image%>"
+            class="img-thumbnail w-75"
+            style="object-fit: contain; max-height: 200px"
+            alt="song-image"
+          />
+        </div>
+        <div
+          class="col-md-8 d-flex flex-column justify-content-center align-self-center"
+        >
+          <div
+            class="card-body d-flex flex-column justify-content-center align-self-center text-center"
+          >
+            <a
+              href="/users/<%=songs[songId].author%>/tracks/<%=songId%>"
+              class="text-decoration-none"
+              ><h3 class="card-title text-dark"><%=songs[songId].title%></h3></a
+            >
+            <p class="card-text fs-5">
+              by: <% for(let artist of songs[songId].artists) { %>
+              <a
+                href="/users/<%=artist.username%>"
+                class="text-decoration-none me-2"
+                ><span class="text-dark lead"><%=artist.fullname%></span></a
+              >
+              <% } %>
+            </p>
+            <p class="card-text fs-5">Duration: <%=songs[songId].duration%></p>
+            <p class="card-text fs-5">
+              <small class="text-muted">Genre: <%=songs[songId].genre%></small>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %> <% } %>
+  </div>
+  <div class="col-3 position-sticky">
+    <div class="row mb-3">
+      <h3>Top Artists</h3>
+    </div>
+
+    <% if(!users.length) { %>
+    <div class="row text-center">
+      <p class="fs-4">NO REGISTERED USERS YET...</p>
+    </div>
+    <% } else { %> <% for(let user of users) { %>
+    <div class="card mb-3">
+      <div class="row g-0">
+        <div
+          class="col-md-4 d-flex justify-content-center align-self-center px-1 py-1"
+        >
+          <img
+            src="<%= user.profileImage %> "
+            class="img-thumbnail w-100"
+            style="object-fit: contain; max-height: 100px"
+            alt="#"
+          />
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <a href="/users/<%=user.username%>" class="text-decoration-none"
+              ><h5 class="card-title text-dark"><%= user.fullname %></h5></a
+            >
+            <p class="card-text fs-6">
+              <small class="text-muted"
+                >Last online <%= Math.floor(Math.random()*60) %> mins ago</small
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %> <% } %>
+
+    <hr />
+    <div class="row my-3">
+      <h3>Tracks that you like</h3>
+    </div>
+    <% if(!likedSongs.length) { %>
+    <div class="row my-3">
+      <p class="fs-4">You have not liked any songs yet...</p>
+    </div>
+    <% } else { %> <% for(let likedSong of likedSongs) { %>
+    <div class="card my-3">
+      <div class="row g-0">
+        <div
+          class="col-md-4 d-flex justify-content-center align-self-center px-1 py-1"
+        >
+          <img
+            src="<%= likedSong.image %> "
+            class="img-thumbnail w-100"
+            style="object-fit: contain; max-height: 100px"
+            alt="#"
+          />
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <p class="card-text fs-4"><%= likedSong.title %></p>
+            <p class="card-text text-muted fs-6">
+              <small><%= likedSong.genre %></small>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %>
+    <div class="d-flex flex-row-reverse">
+      <a
+        class="text-decoration-none text-dark fs-5"
+        href="/users/<%=currentUser%>/likes"
+        ><p class="text-muted">See more...</p></a
+      >
+    </div>
+    <hr />
+    <% } %>
+  </div>
+</div>

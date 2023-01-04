@@ -1,0 +1,77 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container my-5">
+  <div class="row">
+    <p class="fs-3">
+      Search result for '<%=searchQuery ? searchQuery : "anything"%>'
+    </p>
+    <hr />
+  </div>
+  <div class="row">
+    <div class="col-3 border-end fs-5">
+      <div class="list-group-flush">
+        <a
+          href="/search?q=<%=searchQuery%>"
+          class="list-group-item list-group-item-action border-0 disabled"
+          aria-current="true"
+        >
+          <i class="fas fa-search me-2"></i>Everything (disabled)
+        </a>
+        <a
+          href="/search/tracks?q=<%=searchQuery%>"
+          class="list-group-item list-group-item-action border-0"
+          >Tracks</a
+        >
+        <a
+          href="/search/playlists?q=<%=searchQuery%>"
+          class="list-group-item list-group-item-action border-0"
+          >Playlists</a
+        >
+        <a
+          href=""
+          class="list-group-item list-group-item-action border-0 active"
+          >People</a
+        >
+      </div>
+    </div>
+    <div class="col-7 offset-1">
+      <p class="text-muted fs-4 my-4">
+        Found <%=users.length%> matching user<%=users.length == 1 ? "" :
+        "s"%>...
+      </p>
+
+      <% for(let user of users) { %>
+      <div class="card my-3">
+        <div class="row g-0">
+          <div
+            class="col-md-4 d-flex align-self-center justify-content-center py-3"
+          >
+            <img
+              src="<%=user.profile_img%>"
+              class="img-thumbnail w-75"
+              style="height: 170px; object-fit: contain"
+              alt="#"
+            />
+          </div>
+          <div
+            class="col-md-8 d-flex flex-column justify-content-center align-self-center"
+          >
+            <div
+              class="card-body d-flex flex-column justify-content-center align-self-center text-center"
+            >
+              <a href="/users/<%=user.username%>" class="text-decoration-none"
+                ><h2 class="card-title text-dark"><%=user.fullname%></h2></a
+              >
+              <p class="card-text fs-3">
+                <small class="text-muted"
+                  ><%=Math.floor(Math.random()*1000)%>k subscribers</small
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>

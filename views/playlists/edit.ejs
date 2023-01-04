@@ -1,0 +1,47 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row mt-5">
+  <div class="text-center mt-5">
+    <h2>Edit the Playlist!</h2>
+  </div>
+  <div class="col-8 offset-2 my-5">
+    <form
+      action="/users/<%=username%>/playlists/<%=playlist.id%>?_method=put"
+      method="post"
+      novalidate
+      class="validated-form"
+      enctype="multipart/form-data"
+    >
+      <div class="mb-3">
+        <label for="playlistTitle" class="form-label">Title*</label><br />
+        <input
+          type="text"
+          class="form-control"
+          id="playlistTitle"
+          name="playlistTitle"
+          value="<%=playlist.title%>"
+          placeholder="title"
+          required
+        />
+      </div>
+
+      <p class="mt-5">Change Image</p>
+      <div class="input-group mb-5">
+        <input
+          type="file"
+          class="form-control"
+          id="playlistImage"
+          name="playlistImage"
+          single
+        />
+        <label class="input-group-text" for="playlistImage"
+          >Playlist Image</label
+        >
+      </div>
+
+      <div class="col-2 offset-5 mt-5">
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>

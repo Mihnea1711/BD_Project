@@ -1,0 +1,157 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container my-5">
+  <div class="card my-3">
+    <div class="row g-0">
+      <div
+        class="col-md-4 d-flex justify-content-center align-self-center py-3"
+      >
+        <img
+          src="<%=song.imgSrc%> "
+          class="img-thumbnail w-75"
+          alt="playlist_image"
+        />
+      </div>
+      <div
+        class="col-md-7 d-flex justify-content-center align-self-center py-3"
+      >
+        <div class="card-body text-center">
+          <h2 class="card-title"><%=song.title%></h2>
+          <p class="card-text fs-5">
+            by: <% for(let artist of song.artists) { %>
+            <a
+              href="/users/<%=artist.username%>"
+              class="text-decoration-none me-2"
+              ><span class="text-dark"><%=artist.fullname%></span></a
+            >
+            <% } %>
+          </p>
+          <p class="card-text fs-3">Published on: <%=song.datePublished%></p>
+          <p class="card-text fs-5">
+            <small class="text-muted"
+              ><span class="mx-2">Length: <%=song.duration%></span
+              ><span class="mx-2">Genre: <%=song.genre%></span>
+            </small>
+          </p>
+          <p class="card-text fs-3">Likes: <%=song.likes%></p>
+          <p class="card-text fs-3">BPM: <%=song.bpm%></p>
+          <% if(currentUser && currentUser === username) { %>
+          <div class="row mt-5">
+            <div class="col-2 offset-3">
+              <a
+                class="btn btn-lg btn-info"
+                href="/users/<%=username%>/tracks/<%=song.id%>/edit"
+                >Edit</a
+              >
+            </div>
+            <div class="col-2 offset-2">
+              <form
+                action="/users/<%=username%>/tracks/<%=song.id%>?_method=delete"
+                method="post"
+              >
+                <button class="btn btn-lg btn-danger">Delete</button>
+              </form>
+            </div>
+          </div>
+          <% } %>
+        </div>
+      </div>
+      <div class="col-md-1 d-flex justify-content-center align-self-center">
+        <form
+          action="/users/<%=username%>/tracks/<%=song.id%>/likeSong"
+          method="post"
+        >
+          <button type="submit" class="btn btn-lg btn-outline-danger">
+            <% if(isLiked) { %> <i class="fa-solid fa-heart"></i> <% } else { %>
+            <i class="fa-regular fa-heart"></i> %> <% } %>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="row my-2 d-flex">
+    <div class="col-md-7 offset-1 py-2 mt-3">
+      <form action="/users/<%=username%>/tracks/<%=song.id%>" method="post">
+        <div class="input-group mb-3">
+          <div class="d-inline-flex">
+            <img
+              src="<%=currentUserProfilePic%>"
+              class="img-fluid w-100"
+              style="object-fit: contain; max-height: 50px"
+              alt=""
+            />
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Write a comment"
+            name="commentText"
+            id="commentText"
+          /><button class="btn btn-outline-secondary" type="submit">
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+    <div
+      class="col-2 offset-1 d-flex align-items-center justify-content-center"
+    >
+      <a
+        class="btn btn-info btn-lg"
+        href="/users/<%=currentUser%>/playlists/show?q=<%=song.id%>"
+        >Add To Playlist</a
+      >
+    </div>
+  </div>
+
+  <div class="row text-center">
+    <p class="lead fs-3">Comments</p>
+    <hr />
+  </div>
+
+  <% if(!comments.length) {%>
+  <div class="row my-5 text-center">
+    <p class="fs-2">No comments yet.. Go on and change it!</p>
+  </div>
+  <% } else {%> <% for(let comment of comments) { %>
+  <div class="row my-3 text-center">
+    <div class="col-8 offset-2">
+      <div class="row my-2">
+        <div class="col-3 d-flex justify-content-end">
+          <img
+            src="<%=comment.userProfilePic%>"
+            class="img-fluid w-25 align-self-center"
+            style="object-fit: contain; max-height: 50px; border-radius: 50%"
+            alt=""
+          />
+        </div>
+        <div class="col-6">
+          <p class="text-muted my-1 fs-5">
+            by -
+            <a
+              class="text-decoration-none text-dark lead"
+              href="/users/<%=comment.username%>"
+              ><small><%=comment.fullname%></small></a
+            >
+          </p>
+          <p class="my-1 fs-4"><%=comment.userComment%></p>
+        </div>
+        <% if(currentUser && currentUser === comment.username) { %>
+        <div class="col-3 d-flex">
+          <form
+            class="d-flex justify-content-start"
+            action="/users/<%=username%>/tracks/<%=song.id%>/deleteComment?q=<%=comment.commentId%>"
+            method="post"
+          >
+            <button class="btn btn-sm btn-danger align-self-center">
+              Remove
+            </button>
+          </form>
+        </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+  <% } %> <% } %>
+</div>

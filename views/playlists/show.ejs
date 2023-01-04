@@ -1,0 +1,43 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container my-5 text-center border w-50">
+  <div class="my-5">
+    <h1 class="display-1">Add To Playlist</h1>
+  </div>
+  <div class="row my-5 d-flex justify-content-center align-items-center">
+    <a
+      class="btn btn-lg btn-secondary w-25"
+      href="/users/<%=username%>/playlists/create"
+      >Create Playlist</a
+    >
+  </div>
+
+  <% if(!playlists.length) { %>
+  <div class="row my-5">
+    <h4 class="display-6">You don't have any playlists yet...</h3>
+  </div>
+  <% } else { %> <% for(let playlist of playlists) { %>
+  <div class="row my-5 d-flex justify-content-center align-items-center">
+    <div class="col-2 d-flex justify-content-start">
+      <img
+        src="<%=playlist.image%>"
+        class="img-fluid w-75 align-self-center"
+        style="object-fit: contain; max-height: 100px"
+        alt=""
+      />
+    </div>
+    <div class="col-3 fs-3">
+      <p class="lead fs-3 mt-2"><%=playlist.title%></p>
+    </div>
+    <div class="col-2 d-flex justify-content-end">
+      <form
+        action="/users/<%=username%>/playlists/show?p_id=<%=playlist.id%>&s_id=<%=song_id%>"
+        method="post"
+      >
+        <button class="btn btn-sm btn-outline-secondary">Add</button>
+      </form>
+    </div>
+    <hr class="w-75 mt-3" />
+  </div>
+  <% } %> <% } %>
+</div>

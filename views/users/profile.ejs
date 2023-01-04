@@ -1,0 +1,121 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container text-center">
+  <div class="card text-bg-dark">
+    <img
+      src="<%=user.backgroundImage%>"
+      class="card-img img-thumbnail w-100"
+      alt="bckg-img"
+      style="
+        max-height: 400px;
+        background-size: cover;
+        background-position: center;
+      "
+    />
+    <div
+      class="card-img-overlay d-flex justify-content-center align-items-center my-4 py-2"
+    >
+      <div class="row d-flex justify-content-center">
+        <div class="col-4 my-4 py-2">
+          <img
+            class="img-thumbnail w-75"
+            src="<%=user.profileImage%>"
+            alt="profile-img"
+            style="border-radius: 20%"
+          />
+        </div>
+        <div class="col-6 d-flex flex-column justify-content-center my-4 py-2">
+          <div class="w-75 align-self-center">
+            <h3 class="card-title text-dark fs-2 my-3 py-2">
+              <span><%=user.name%></span>
+            </h3>
+            <h3 class="card-title text-dark fs-4 my-3 py-2">
+              <span><%=user.username%></span>
+            </h3>
+            <p class="card-text fs-4">
+              - <%= user.bio ? user.bio : 'No bio yet...' %>
+            </p>
+            <p class="card-text text-muted">
+              <%=user.email != 'user@email.com' ? user.email : 'No email'%>
+            </p>
+          </div>
+          <% if(currentUser && currentUser === user.username) { %>
+          <div class="row mt-4">
+            <div class="col-2 offset-3">
+              <a
+                class="btn btn-lg btn-info"
+                href="/users/<%=user.username%>/profile/edit"
+                >Edit</a
+              >
+            </div>
+            <div class="col-2 offset-2 d-flex justify-content-center">
+              <form
+                action="/users/<%=user.username%>/profile?_method=delete"
+                method="post"
+              >
+                <button class="btn btn-lg btn-danger">Delete</button>
+              </form>
+            </div>
+          </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="navbar navbar-expand-lg my-2">
+    <div class="container-fluid">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a
+            class="nav-link fs-3 mx-3 text-info text-decoration-underline"
+            href="/users/<%=user.username%>/profile"
+            >Overview</a
+          >
+          <a
+            class="nav-link fs-3 mx-3 text-dark"
+            href="/users/<%=user.username%>/tracks"
+            >Tracks</a
+          >
+          <a
+            class="nav-link fs-3 mx-3 text-dark"
+            href="/users/<%=user.username%>/playlists"
+            >Playlists</a
+          >
+          <a
+            class="nav-link fs-3 mx-3 text-dark"
+            href="/users/<%=user.username%>/likes"
+            >Likes</a
+          >
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="container py-5 border-top border-bottom">
+    <div class="row">
+      <div class="col-8 border-end">
+        You recently listened to... <br />
+        - <br />
+        - <br />
+        - <br />
+      </div>
+      <div class="col-4">
+        You recently commented here... <br />
+        - <br />
+        - <br />
+        - <br />
+      </div>
+    </div>
+  </div>
+  <div class="text-center my-5">TODO()</div>
+</div>

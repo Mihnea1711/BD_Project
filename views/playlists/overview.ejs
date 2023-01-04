@@ -1,0 +1,126 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container my-5">
+  <div class="row">
+    <div class="card mb-3">
+      <div class="row g-0">
+        <div
+          class="col-md-4 d-flex justify-content-center align-self-center py-3"
+        >
+          <img
+            src="<%=playlist.image%> "
+            class="img-thumbnail w-75"
+            alt="playlist_image"
+          />
+        </div>
+        <div
+          class="col-md-8 d-flex justify-content-center align-self-center py-3"
+        >
+          <div class="card-body text-center">
+            <h2 class="card-title"><%=playlist.title%></h2>
+            <p class="card-text fs-3">Created on: <%=playlist.dateCreated%></p>
+            <p class="card-text fs-5">
+              <small class="text-muted"
+                ><span class="mx-2">Length: <%=playlist.length%></span
+                ><span class="mx-2">Songs: <%=playlist.nrOfSongs%></span>
+              </small>
+            </p>
+            <% if(currentUser && currentUser === playlist.user) { %>
+            <div class="row mt-5">
+              <div class="col-2 offset-3">
+                <a
+                  class="btn btn-lg btn-info"
+                  href="/users/<%=playlist.user%>/playlists/<%=playlist.id%>/edit"
+                  >Edit</a
+                >
+              </div>
+              <div class="col-2 offset-2">
+                <form
+                  action="/users/<%=playlist.user%>/playlists/<%=playlist.id%>?_method=delete"
+                  method="post"
+                >
+                  <button class="btn btn-lg btn-danger">Delete</button>
+                </form>
+              </div>
+            </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-5 text-start">
+      <p class="lead fs-2">Songs</p>
+      <hr />
+    </div>
+
+    <%if(!Object.keys(songs).length) { %>
+    <div class="row text-center my-5">
+      <p class="fs-4">THIS PLAYLIST HAS NO SONGS YET...</p>
+    </div>
+    <% } else { %>
+    <div class="row">
+      <% for(let songId of Object.keys(songs)) { %>
+      <div class="card mt-3">
+        <div class="row g-0">
+          <div
+            class="col-md-4 d-flex justify-content-center align-self-center py-3"
+          >
+            <img
+              src="<%=songs[songId].image%>"
+              class="img-thumbnail w-75"
+              style="max-height: 150px; object-fit: contain"
+              alt="song-image"
+            />
+          </div>
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="card-body">
+                  <a
+                    href="/users/<%=songs[songId].author%>/tracks/<%=songId%>"
+                    class="text-decoration-none"
+                    ><h3 class="card-title text-dark">
+                      <%=songs[songId].title%>
+                    </h3></a
+                  >
+                  <p class="card-text fs-5">
+                    by: <% for(let artist of songs[songId].artists) { %>
+                    <a
+                      href="/users/<%=artist.username%>"
+                      class="text-decoration-none me-2"
+                      ><span class="text-dark"><%=artist.fullname%></span></a
+                    >
+                    <% } %>
+                  </p>
+                  <p class="card-text fs-5">
+                    Duration: <%=songs[songId].duration%>
+                  </p>
+                  <p class="card-text fs-5">
+                    <small class="text-muted"
+                      >Genre: <%=songs[songId].genre%></small
+                    >
+                  </p>
+                </div>
+              </div>
+              <div
+                class="col-md-4 d-flex align-self-center justify-content-center"
+              >
+                <form
+                  action="/users/<%=playlist.user%>/playlists/<%=playlist.id%>/remove/<%=songId%>?_method=delete"
+                  method="post"
+                >
+                  <button type="submit" class="btn btn-lg btn-danger">
+                    Remove
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    </div>
+    <% } %>
+  </div>
+</div>

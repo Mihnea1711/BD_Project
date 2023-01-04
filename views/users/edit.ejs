@@ -1,0 +1,97 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row mt-5">
+  <div class="text-center">
+    <h2>EDIT YOUR PROFILE!</h2>
+  </div>
+  <div class="col-8 offset-2">
+    <form
+      action="/users/<%=user.username%>/profile?_method=put"
+      method="post"
+      novalidate
+      class="validated-form"
+      enctype="multipart/form-data"
+    >
+      <div class="row mb-3">
+        <div class="col-6">
+          <label class="form-label" for="firstName">First Name</label>
+          <input
+            class="form-control"
+            type="text"
+            id="firstName"
+            name="firstName"
+            placeholder="first"
+            value="<%=user.firstName%>"
+            required
+          />
+          <div class="valid-feedback">Looks Good!</div>
+        </div>
+        <div class="col-6">
+          <label class="form-label" for="lastName">Last Name</label>
+          <input
+            class="form-control"
+            type="text"
+            id="lastName"
+            name="lastName"
+            placeholder="last"
+            value="<%=user.lastName%>"
+            required
+          />
+          <div class="valid-feedback">Looks Good!</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="bio" class="form-label">Bio</label><br />
+        <input
+          type="text"
+          class="form-control"
+          id="bio"
+          name="bio"
+          value="<%=user.bio%>"
+          placeholder="bio text"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label><br />
+        <input
+          type="text"
+          class="form-control"
+          id="email"
+          name="email"
+          value="<%=user.email%>"
+          placeholder="email"
+        />
+      </div>
+
+      <div class="input-group my-4">
+        <input
+          type="file"
+          class="form-control"
+          id="profileImage"
+          name="profileImage"
+          single
+        />
+        <label class="input-group-text" for="profileImage">Profile Image</label>
+      </div>
+
+      <div class="input-group my-4">
+        <input
+          type="file"
+          class="form-control"
+          id="backgroundImage"
+          name="backgroundImage"
+          single
+        />
+        <label class="input-group-text" for="backgroundImage"
+          >Background Image</label
+        >
+      </div>
+
+      <div class="col-2 offset-5 mt-5">
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>

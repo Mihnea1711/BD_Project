@@ -1,0 +1,100 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row mt-5">
+  <div class="text-center">
+    <h2>UPLOAD A SONG!</h2>
+  </div>
+  <div class="col-8 offset-2">
+    <form
+      action="/upload"
+      method="post"
+      novalidate
+      class="validated-form"
+      enctype="multipart/form-data"
+    >
+      <div class="mb-3">
+        <label for="songTitle" class="form-label">Title*</label><br />
+        <input
+          type="text"
+          class="form-control"
+          id="songTitle"
+          name="songTitle"
+          placeholder="title"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="songTitle" class="form-label">Featured Artists</label><br />
+        <input
+          type="text"
+          class="form-control"
+          id="featured"
+          name="featured"
+          placeholder="usernames(,)"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="songLink" class="form-label">Link*</label><br />
+        <input
+          type="text"
+          class="form-control"
+          id="songLink"
+          name="songLink"
+          placeholder="link"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="songGenre" class="form-label">Genre*</label><br />
+        <input
+          type="text"
+          class="form-control"
+          id="songGenre"
+          name="songGenre"
+          placeholder="genre"
+          required
+        />
+      </div>
+
+      <div class="input-group my-4">
+        <input
+          type="file"
+          class="form-control"
+          id="songImage"
+          name="songImage"
+          single
+        />
+        <label class="input-group-text" for="songImage">Song Image</label>
+      </div>
+
+      <div class="row my-4">
+        <div class="col-6">
+          <input
+            type="text"
+            class="form-control"
+            id="songDuration"
+            name="songDuration"
+            placeholder="duration(sec)*"
+            required
+          />
+        </div>
+        <div class="col-6">
+          <input
+            type="text"
+            class="form-control"
+            name="songBPM"
+            id="songBPM"
+            placeholder="bpm"
+          />
+        </div>
+      </div>
+
+      <div class="col-2 offset-5 mt-5">
+        <button type="submit" class="btn btn-primary">Upload</button>
+      </div>
+    </form>
+  </div>
+</div>

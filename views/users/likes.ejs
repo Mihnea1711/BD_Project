@@ -1,0 +1,130 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container text-center">
+  <div class="card text-bg-dark">
+    <img
+      src="<%=user.backgroundImage%>"
+      class="card-img img-thumbnail w-100"
+      alt="bckg-img"
+      style="
+        max-height: 400px;
+        background-size: cover;
+        background-position: center;
+      "
+    />
+    <div
+      class="card-img-overlay d-flex justify-content-center align-items-center my-4 py-2"
+    >
+      <div class="row d-flex justify-content-center">
+        <div class="col-4 my-4 py-2">
+          <img
+            class="img-thumbnail w-75"
+            src="<%=user.profileImage%>"
+            alt="profile-img"
+            style="border-radius: 20%"
+          />
+        </div>
+        <div class="col-6 d-flex flex-column justify-content-center my-4 py-2">
+          <h3 class="card-title fs-2 my-3"><%= user.name %></h3>
+          <p class="card-text fs-4">
+            - <%= user.bio ? user.bio : 'No bio yet...' %>
+          </p>
+          <p class="card-text text-muted"><%= user.email %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="navbar navbar-expand-lg mt-2">
+    <div class="container-fluid">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a
+            class="nav-link fs-3 mx-3 text-dark"
+            href="/users/<%=user.username%>/profile"
+            >Overview</a
+          >
+          <a
+            class="nav-link fs-3 mx-3 text-dark"
+            href="/users/<%=user.username%>/tracks"
+            >Tracks</a
+          >
+          <a
+            class="nav-link fs-3 mx-3 text-dark"
+            href="/users/<%=user.username%>/playlists"
+            >Playlists</a
+          >
+          <a
+            class="nav-link fs-3 mx-3 text-info text-decoration-underline"
+            href="#"
+            >Likes</a
+          >
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="row mt-5 text-start">
+    <p class="lead fs-2">These are the tracks that you like</p>
+    <hr />
+  </div>
+
+  <div class="container">
+    <% if(!Object.keys(likedSongs).length) { %>
+    <div class="row my-5">
+      <p class="fs-5">You have not liked any songs yet...</p>
+    </div>
+    <% } else { %> <% for (let songId of Object.keys(likedSongs)) { %>
+    <div class="card my-3">
+      <div class="row g-0 mx-5">
+        <div class="col-md-4 d-flex align-self-center py-3">
+          <img
+            src="<%=likedSongs[songId].image%>"
+            class="img-fluid w-100"
+            alt="song-image"
+            style="max-height: 170px; object-fit: contain"
+          />
+        </div>
+        <div class="col-md-8 py-3 d-flex flex-column justify-content-center">
+          <div class="card-body d-flex flex-column justify-content-center">
+            <a
+              href="/users/<%=likedSongs[songId].author%>/tracks/<%=songId%>"
+              class="text-decoration-none"
+              ><h3 class="card-title text-dark">
+                <%=likedSongs[songId].title%>
+              </h3></a
+            >
+            <p class="card-text fs-5">
+              by: <% for(let artist of likedSongs[songId].artists) { %>
+              <a
+                href="/users/<%=artist.username%>"
+                class="text-decoration-none me-2"
+                ><span class="text-dark"><%=artist.fullname%></span></a
+              >
+              <% } %>
+            </p>
+            <p class="card-text fs-5">
+              Duration: <%=likedSongs[songId].duration%>
+            </p>
+            <p class="card-text fs-5">
+              <small class="text-muted"
+                >Genre: <%=likedSongs[songId].genre%></small
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %> <% } %>
+  </div>
+</div>
